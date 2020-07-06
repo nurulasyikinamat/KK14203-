@@ -16,7 +16,12 @@ abstract class Cake{
       this.name = cake_name;
    }
 
-   abstract void setCake(String[] topping, double priceSmall, double priceMedium, double priceBig);
+   void setCake(String[] Topping, double PriceSmall, double PriceMedium, double PriceBig){
+       this.topping = Topping;
+       this.priceSmall = PriceSmall;
+       this.priceMedium = PriceMedium;
+       this.priceBig = PriceBig;
+   }
 
    void orderCake(String[] ToppingOrder, int Quantity, int Size){
       this.toppingOrder = ToppingOrder;
