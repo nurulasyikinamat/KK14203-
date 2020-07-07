@@ -37,7 +37,7 @@ class Cake{
            return priceMedium;
        }
        else{
-           return priceMedium;
+           return priceBig;
        }
    }
 
