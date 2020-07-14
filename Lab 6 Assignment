@@ -1,0 +1,208 @@
+/*  NAME: NURUL ASYIKIN BINTI AMAT
+    MATRIC NO: BI19110094
+*/
+
+import java.text.DecimalFormat;
+import java.awt.*;
+import javax.swing.*;
+
+class HeaderPanel extends JPanel{
+   private JLabel header;
+   public HeaderPanel(){
+      header = new JLabel("Cake Order System");
+      add(header);
+   } 
+}
+
+abstract class Cake extends JFrame{
+   DecimalFormat df = new DecimalFormat("0.00");
+   String name;
+   String[] topping = new String[5];
+   String[] toppingOrder = new String[5];
+   double priceSmall, priceMedium, priceBig, totalPrice;
+   int size, quantity;
+ 
+    Cake(String cake_name){
+      this.name = cake_name;
+      setTitle("BI19110094 Test Cake");
+      setSize(400, 500);
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      
+      HeaderPanel h = new HeaderPanel();
+      add(h, BorderLayout.NORTH);
+      setVisible(true);
+   }
+
+   abstract void setCake(String[] Topping, double PriceSmall, double PriceMedium, double PriceBig);
+   
+   void orderCake(String[] ToppingOrder, int Quantity, int Size){
+      this.toppingOrder = ToppingOrder;
+      this.quantity = Quantity;
+      this.size = Size;
+   }
+   
+   double getSizePrice(){
+       if(size==1){
+           return priceSmall;
+       }
+       else if(size==2){
+           return priceMedium;
+       }
+       else{
+           return priceBig;
+       }
+   }
+
+   double getTotalPrice(){
+      totalPrice = getSizePrice() * quantity + (toppingOrder.length*10);
+      return totalPrice;
+   }
+   
+   String getSizeCake(){
+      if(size==1){
+           return "Small";
+      }
+      else if(size==2){
+           return "Medium";
+      }
+      else{
+          return "Big"; 
+      } 
+   }
+
+
+   void printCake(){
+      System.out.println("---------------------------");
+      System.out.println("\t\tCake Menu\t\t");
+      System.out.println("---------------------------");
+      System.out.println(name + " cake with available toppings: ");
+
+      for(int i=0; i<topping.length; i++){
+         System.out.println((i+1)+ ") " + topping[i]);   
+      }
+
+      System.out.println("\nPrice: ");
+      System.out.println("[1] Small  : RM" + df.format(priceSmall));
+      System.out.println("[2] Medium : RM" + df.format(priceMedium));
+      System.out.println("[3] Big    : RM" + df.format(priceBig)); 
+      
+      // GUI CODING
+      JLabel line1 = new JLabel("---------------------------");
+      add(line1);
+      line1.setBounds(10, 20, 130, 25);
+      JLabel menu = new JLabel("\t\tCake Menu\t\t");
+      add(menu);
+      menu.setBounds(30, 35, 90, 25);
+      JLabel line2 = new JLabel("---------------------------");
+      add(line2);
+      line2.setBounds(10, 50, 130, 25);
+      JLabel toppings = new JLabel(name + " cake with available toppings: ");
+      add(toppings);
+      toppings.setBounds(10, 70, 250, 25);
+      
+      int o = 20;
+      
+      int t = topping.length;
+      JLabel[] newArray = new JLabel[t];
+      for(int i=0; i<t; i++){
+         newArray[i] = new JLabel((i+1)+ ") " + topping[i]);
+         add(newArray[i]);   
+         newArray[i].setBounds (10, 80+o, 203, 25);
+         o += 20;
+      }
+      
+      JLabel price = new JLabel("\nPrice: ");
+      add(price);
+      price.setBounds(10, 170, 100, 25);
+      JLabel small = new JLabel("[1] Small  : RM" + df.format(priceSmall));
+      add(small);
+      small.setBounds(10, 200, 143, 25);
+      JLabel medium = new JLabel("[2] Medium : RM" + df.format(priceMedium));
+      add(medium);
+      medium.setBounds(10, 220, 143, 25);
+      JLabel big = new JLabel("[3] Big    : RM" + df.format(priceBig)); 
+      add(big);
+      big.setBounds (10, 240, 143, 25);
+      
+      setLayout(null);
+   }
+
+   void printOrder(){
+      System.out.println("\n");
+      System.out.println("Cake Order detail: ");
+      System.out.println("--------------------------------------------------");
+      System.out.print("Topping: ");
+      
+      for(int i=0; i<toppingOrder.length; i++){
+            System.out.print((i+1)+ ") " + toppingOrder[i] + " ");   
+         }
+         
+      System.out.println("\nSize: " + getSizeCake());
+      System.out.println("--------------------------------------------------");
+      System.out.println("Total Price: RM " + df.format(getTotalPrice()));
+      System.out.println("--------------------------------------------------");
+      
+      //GUI Coding;
+      JLabel details = new JLabel("Cake Order detail: ");
+      add(details);
+      details.setBounds(10, 270, 250, 25);
+      JLabel line4 = new JLabel("--------------------------------------------------");
+      add(line4);
+      line4.setBounds (10, 285, 250, 25);//line
+      JLabel tpp = new JLabel("Topping: ");
+      add(tpp);
+      tpp.setBounds (10, 308, 100, 25);
+      
+      int j = 15;
+      
+      int tppOrder = toppingOrder.length;
+      JLabel[] newArray2 = new JLabel[toppingOrder.length];
+      for(int i=0; i<tppOrder; i++){
+            newArray2[i] = new JLabel((i+1)+ ") " + toppingOrder[i] + " ");   
+            add(newArray2[i]);
+            newArray2[i].setBounds (10, 315+j, 250, 25);
+             j += 15;
+         }
+         
+      JLabel getsize = new JLabel("\nSize: " + getSizeCake());
+      getsize.setBounds (10, 362, 100, 25);//size
+      add(getsize);
+      JLabel line5 = new JLabel("--------------------------------------------------");
+      add(line5);
+      line5.setBounds (10, 375, 250, 25);
+      JLabel total = new JLabel("Total Price: RM " + df.format(getTotalPrice()));
+      add(total);
+      total.setBounds(10, 390, 250, 25);
+      JLabel line6 = new JLabel("--------------------------------------------------");
+      add(line6);
+      line6.setBounds(10, 405, 250, 25);
+      
+      setLayout(null);
+   }
+}
+
+class BlackForest extends Cake{
+   BlackForest(String cake_name){
+      super(cake_name);
+   }
+
+   void setCake(String[] Topping, double PriceSmall, double PriceMedium, double PriceBig){
+      this.topping = Topping;
+      this.priceSmall = PriceSmall;
+      this.priceMedium = PriceMedium;
+      this.priceBig = PriceBig;
+   }
+}
+
+public class TestCake{
+    public static void main(String args[]){
+       Cake c = new BlackForest("BlackForest");
+       String[] topping = {"Chocolate", "Cherries", "Whipped Cream"};
+       c.setCake(topping, 45.00, 65.00, 80.00);
+       c.printCake();
+
+       String[] order = {"Chocolate", "Cherries"};
+       c.orderCake(order, 1, 2);
+       c.printOrder();
+    }
+}
