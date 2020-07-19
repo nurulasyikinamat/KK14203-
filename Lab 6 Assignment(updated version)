@@ -1,16 +1,10 @@
-/*  NAME: NURUL ASYIKIN BINTI AMAT
-    MATRIC NO: BI19110094
-*/
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
 //required for border
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-
 //required for file IO
 import java.io.File;
 import java.io.FileReader;
@@ -18,10 +12,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
-
 //required for exception
 import java.io.IOException;
-
 //required for decimal number
 import java.text.DecimalFormat;
 
@@ -57,6 +49,8 @@ class CakePanel extends JPanel implements ActionListener, ItemListener{
    JCheckBox t1;
    JCheckBox t2;
    JCheckBox t3;
+   JLabel quantity;
+   JTextField user_q;
    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
 
    //global variable  
@@ -66,7 +60,8 @@ class CakePanel extends JPanel implements ActionListener, ItemListener{
    String list_selection2="";
    String rb_selection="";
    String filePath="data.txt"; //in the same directory
-   double ttl;
+   int ttl, multi;
+   int q,a;
    
    public CakePanel(){        
       
@@ -157,24 +152,31 @@ class CakePanel extends JPanel implements ActionListener, ItemListener{
       bg.add(l2);
       bg.add(l3);
       
+      quantity = new JLabel("Quantity: ");
+      quantity.setBounds(20,355,100,25);
+      add(quantity);
+      user_q = new JTextField(20);
+      user_q.setBounds(75,355,100,25); 
+      add(user_q);
+      
       l4 = new JLabel ("-------------------------------------------------------------------------------------------");
-      l4.setBounds (20, 355, 400, 25);
+      l4.setBounds (20, 370, 400, 25);
       add(l4);
       
       total = new JLabel ("Total Price :");
-      total.setBounds (20, 370, 200, 25);
+      total.setBounds (20, 385, 200, 25);
       add(total);
           
       line5 = new JLabel ("-------------------------------------------------------------------------------------------");
-      line5.setBounds (20, 385, 400, 25);
+      line5.setBounds (20, 400, 400, 25);
       add(line5);
             
       submit = new JButton ("Submit");
-      submit.setBounds (330, 330, 100, 25);
+      submit.setBounds (330, 355, 100, 25);
       add(submit);
       
       clear = new JButton("Clear");
-      clear.setBounds (450, 330, 100, 25);
+      clear.setBounds (450, 355, 100, 25);
       add(clear);
       
       //handle button submit action listener
@@ -185,7 +187,8 @@ class CakePanel extends JPanel implements ActionListener, ItemListener{
              //call method              
              if(printOutput())
                 writeInput(); 
-                total.setText("Total Price : RM"+df.format(ttl));    
+                quantity.setText("Quantity: ");
+                total.setText("Total Price : RM"+df.format(multi));   
           }  
        });
       
@@ -193,26 +196,13 @@ class CakePanel extends JPanel implements ActionListener, ItemListener{
       clear.addActionListener(new ActionListener(){  
           public void actionPerformed(ActionEvent e){  
              lbl_output.setText("Output"); 
-             line.setText("----------------------------------------------");
-             menu.setText("Cake Menu");
-             line2.setText("----------------------------------------------");
-             toppings.setText("BlackForest with available toppings:");
-             topping.setText("1) Chocolate");
-             topping1.setText("2) Cherries");
-             topping2.setText("3) Whipped Cream");
-             price.setText("Price:");
-             small.setText("[1] Small     : RM45.00");
-             medium.setText("[2] Medium : RM65.00");
-             big.setText("[3] Big          : RM80.00");
-             details.setText("Cake Order Details:");
-             line3.setText("-------------------------------------------------------------------------------------------");  
              bg.clearSelection();
              t1.setSelected(false);
              t2.setSelected(false);
              t3.setSelected(false);
-             l4.setText("-------------------------------------------------------------------------------------------");
-             total.setText("Total Price :");
-             line5.setText("-------------------------------------------------------------------------------------------");
+             user_q.setText(" ");
+             quantity.setText("Quantity: ");
+             total.setText("Total Price : RM"); 
           }  
         });
             
@@ -242,7 +232,7 @@ class CakePanel extends JPanel implements ActionListener, ItemListener{
       output = "<html>";
       output += "Thank you for your order<br><br>";   
       output += "Topping: " + list_selection + "<br>";
-      
+      q = Integer.parseInt(user_q.getText());
       if(t1.isSelected()){
       ttl += 10;
       }if(t2.isSelected()){
@@ -250,17 +240,18 @@ class CakePanel extends JPanel implements ActionListener, ItemListener{
       }if(t3.isSelected()){
       ttl += 10;
       }
-
+      
       if(l1.isSelected()){
-         ttl += 45;
+         multi = ttl + (45 * q);
       }else if(l2.isSelected()){
-         ttl+= 65;
+         multi = ttl + (65 * q);
       }else if(l3.isSelected()){
-         ttl += 80;
+         multi = ttl + (80 * q);
       }
-            
+      
       output += "Size: " + rb_selection + "<br>";
-      output += "Total: RM" + df.format(ttl) + "<br>";
+      output += "Quantity: "+ q + "<br>";
+      output += "Total: RM" + df.format(multi) + "<br>";
       output += "</html>";          
       lbl_output.setText(output);
       jsp.getViewport().revalidate();
@@ -274,7 +265,7 @@ class CakePanel extends JPanel implements ActionListener, ItemListener{
 		BufferedWriter br = null;
 		PrintWriter pr = null;
        
-      String input = rb_selection + ", " + list_selection + ", RM" + df.format(ttl);
+      String input = rb_selection + ", " + list_selection + ","  +  user_q.getText() +", RM" + df.format(multi);
        
        //exception implementation
 		try {
