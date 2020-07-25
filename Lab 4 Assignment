@@ -58,10 +58,9 @@ class Orders{
    
    double getSubTotal(){
       return subTotal;
-   }
-   
-   //accessor & mutator   
+   }   
 }
+
 public class Lab3_MenuDemo {
    public static void main(String args[]) throws java.io.IOException{
       char choice;
