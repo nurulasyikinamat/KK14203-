@@ -4,7 +4,7 @@
 
 import java.text.DecimalFormat;
 
-class Cake{
+abstract class Cake{
    DecimalFormat df = new DecimalFormat("0.00");
    String name;
    String[] topping = new String[5];
@@ -16,13 +16,8 @@ class Cake{
       this.name = cake_name;
    }
 
-   void setCake(String[] Topping, double PriceSmall, double PriceMedium, double PriceBig){
-       this.topping = Topping;
-       this.priceSmall = PriceSmall;
-       this.priceMedium = PriceMedium;
-       this.priceBig = PriceBig;
-   }
-
+   abstract void setCake(String[] Topping, double PriceSmall, double PriceMedium, double PriceBig);
+   
    void orderCake(String[] ToppingOrder, int Quantity, int Size){
       this.toppingOrder = ToppingOrder;
       this.quantity = Quantity;
