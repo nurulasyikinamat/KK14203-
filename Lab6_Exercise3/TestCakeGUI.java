@@ -47,7 +47,7 @@ class TestCakeGUI extends JPanel implements ActionListener{
         save.addActionListener(this);
         
         //adjust size and set layout
-        setPreferredSize (new Dimension (514, 325));
+        setPreferredSize (new Dimension (514, 385));
         setLayout (null);
 
         //add components
@@ -63,7 +63,7 @@ class TestCakeGUI extends JPanel implements ActionListener{
         jcomp1.setBounds (195, 10, 150, 25);
         jcomp2.setBounds (25, 55, 125, 25);
         btnAdd.setBounds (365, 55, 125, 25);
-        jt1_sp.setBounds (25, 120, 465, 180);
+        jt1_sp.setBounds (25, 120, 465, 240);
         jcb.setBounds (180, 55, 180, 25);
         btnOrder.setBounds (365, 90, 125, 25);
         save.setBounds (230, 90, 125, 25);
